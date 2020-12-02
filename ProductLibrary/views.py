@@ -1,12 +1,15 @@
 import requests
 from django.shortcuts import render
 from .models import Product
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseNotFound
+from django.http import HttpResponse
 from .forms import ProductForm
 
 
 def index(request):
+    return render (request, 'index.html')
+
+
+def create(request):
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
 
     if(request.method == 'POST'):
@@ -41,4 +44,4 @@ def index(request):
 
     context = {'all_info': all_products, 'form': form}
 
-    return render(request, 'index.html', context)
+    return render(request, 'library.html', context)
