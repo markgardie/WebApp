@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Lifesum</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Lifesum</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="#">Главная</a>
+        <a class="p-2 text-dark" href="#">Библиотека продуктов</a>
+        <a class="p-2 text-dark" href="#">Счетчик калорий</a>
+      </nav>
+      <a class="btn btn-outline-primary" href="#">Документация</a>
+    </div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-5 offset-1">
+          <h3>Введите продукт</h3>
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ form.name }} <br>
+            <input type="submit" name="send" value="Узнать" class="mt-btn btn-danger">
+          </form>
+        </div>
+        <div class="col-4 offset-1">
+          <h1>Информация по продукту</h1>
+
+          {% for info in all_info %}
+          <div class="alert alert-info">
+            <b>Продукт:</b> {{ info.name }}<br>
+            <b>Энергия:</b> {{ info.energy }} ккал <br>
+            <b>Белки:</b> {{ info.protein }} г<br>
+            <b>Жиры:</b> {{ info.fat }} г<br>
+            <b>Углеводы:</b> {{ info.carbohydrate }} г<br>
+            <form action="" method="post">{% csrf_token %}
+                <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+            </form>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
