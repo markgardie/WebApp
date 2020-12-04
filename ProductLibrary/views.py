@@ -45,3 +45,6 @@ def create(request):
     context = {'all_info': all_products, 'form': form}
 
     return render(request, 'library.html', context)
+
+def sign(request):
+        return render(request, 'signin.html')
