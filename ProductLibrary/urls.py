@@ -4,6 +4,6 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('library', views.create, name='library'),
+    path('library', views.library, name='library'),
     path('signin', views.sign, name='signin'),
 ]

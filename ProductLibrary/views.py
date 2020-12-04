@@ -9,7 +9,7 @@ def index(request):
     return render (request, 'index.html')
 
 
-def create(request):
+def library(request):
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
 
     if(request.method == 'POST'):
