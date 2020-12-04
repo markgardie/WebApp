@@ -8,15 +8,10 @@ from .forms import ProductForm
 def index(request):
     return render (request, 'index.html')
 
-
 def library(request):
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
 
-    if(request.method == 'POST'):
-        form = ProductForm(request.POST)
-        form.save()
-
-    form = ProductForm()
+    form = lib_create(request)
 
     products = Product.objects.all()
 
@@ -39,12 +34,22 @@ def library(request):
             'carbohydrate':carbohydrate_dict["value"],
             'fat': fat_dict["value"],
         }
-
         all_products.append(product_info)
+
 
     context = {'all_info': all_products, 'form': form}
 
     return render(request, 'library.html', context)
 
-def sign(request):
+
+def lib_create(request):
+    if(request.method == 'POST'):
+        form = ProductForm(request.POST)
+        form.save()
+
+    form = ProductForm()
+
+    return form
+
+def signin(request):
         return render(request, 'signin.html')
