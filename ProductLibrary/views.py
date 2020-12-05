@@ -6,7 +6,7 @@ from .forms import ProductForm
 
 
 def index(request):
-    return render (request, 'index.html')
+    return render (request, 'library/index.html')
 
 def library(request):
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
@@ -39,7 +39,7 @@ def library(request):
 
     context = {'all_info': all_products, 'form': form}
 
-    return render(request, 'library.html', context)
+    return render(request, 'library/library.html', context)
 
 
 def lib_create(request):
@@ -52,4 +52,4 @@ def lib_create(request):
     return form
 
 def signin(request):
-        return render(request, 'signin.html')
+        return render(request, 'library/signin.html')
