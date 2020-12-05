@@ -1,9 +1,55 @@
 {% extends 'base.html' %}
 
+
 {% block title %}
-Главная
+Счетчик
 {% endblock %}
 
 {% block content %}
-
+<h1 class="display-4 text-center">0 ккал</h1>
+<h3 class="display-6 text-center">съедено</h3><br>
+<div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Завтрак</h4>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info text-left">
+          <b>Продукт:</b> Рис <br>
+          <b>Энергия:</b> 300 ккал <br>
+          <br>
+          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+        </div>
+        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Обед</h4>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info text-left">
+          <b>Продукт:</b> Рис <br>
+          <b>Энергия:</b> 300 ккал <br>
+          <br>
+          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+        </div>
+        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+      </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Ужин</h4>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info text-left">
+          <b>Продукт:</b> Рис <br>
+          <b>Энергия:</b> 300 ккал <br>
+          <br>
+          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+        </div>
+        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+      </div>
+    </div>
+</div>
 {% endblock %}
