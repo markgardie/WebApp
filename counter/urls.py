@@ -3,5 +3,5 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name = "counter-index")
+    path('', views.index, name = "counter_index")
 ]
