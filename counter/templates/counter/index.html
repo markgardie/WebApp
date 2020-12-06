@@ -24,7 +24,7 @@
         </div>
         {% endfor %}
 
-        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+        <a href="{% url 'create_breakfast' %}"><input type="submit" class="btn btn-primary" value="Добавить"><br></a><br>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -42,7 +42,7 @@
         </div>
         {% endfor %}
 
-        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+        <a href="{% url 'create_lunch' %}"><input type="submit" class="btn btn-primary" value="Добавить"><br></a><br>
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -60,7 +60,7 @@
         </div>
         {% endfor %}
 
-        <input type="submit" name="submit" class="btn btn-primary" value="Добавить"><br>
+      <a href="{% url 'create_dinner' %}"><input type="submit" class="btn btn-primary" value="Добавить"><br></a><br>
       </div>
     </div>
 </div>

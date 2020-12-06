@@ -62,3 +62,12 @@ def loop(request, eating):
 
         sum+=energy_dict["value"]
     return sum
+
+def create_breakfast(request):
+    return render(request, 'counter/create_breakfast.html')
+
+def create_lunch(request):
+    return render(request, 'counter/create_lunch.html')
+
+def create_dinner(request):
+    return render(request, 'counter/create_dinner.html')
