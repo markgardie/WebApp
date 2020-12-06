@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="display-4 text-center"> 0 ккал</h1>
+<h1 class="display-4 text-center"> {{ calorie }} ккал</h1>
 <h3 class="display-6 text-center">съедено</h3><br>
 <div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
@@ -69,7 +69,7 @@
     <div class="col">
       <h3>Всего:
         {% for info in breakfast_info %}
-          
+
         {% endfor %}
       </h3>
     </div>

@@ -8,23 +8,23 @@ def index(request):
     lunch = Lunch.objects.all()
     dinner = Dinner.objects.all()
 
-    breakfast_info = api(request, breakfast)
-    lunch_info = api(request, lunch)
-    dinner_info = api(request, dinner)
+    breakfast_info = eating_info(request, breakfast)
+    lunch_info = eating_info(request, lunch)
+    dinner_info = eating_info(request, dinner)
 
     context = {
         'breakfast_info': breakfast_info,
         'lunch_info': lunch_info,
         'dinner_info': dinner_info,
+        'calorie': counter(request, breakfast, lunch, dinner),
     }
 
     return render(request, 'counter/index.html', context)
 
-def api(request, eating):
+def eating_info(request, eating):
+    eat_info = []
+
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
-
-    eating_info = []
-
     for product in eating:
         res = requests.get(url.format(product.product_name)).json()
         list_dict = res["foods"][0]["foodNutrients"]
@@ -42,6 +42,23 @@ def api(request, eating):
             'fat': fat_dict["value"],
         }
 
-        eating_info.append(product_info)
+        eat_info.append(product_info)
 
-    return eating_info
+    return eat_info
+
+def counter(request, breakfast, lunch, dinner):
+    sum = loop(request, breakfast) + loop(request, lunch) + loop(request, dinner)
+    return sum
+
+def loop(request, eating):
+    url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
+    sum = 0
+
+    for product in eating:
+        res = requests.get(url.format(product.product_name)).json()
+        list_dict = res["foods"][0]["foodNutrients"]
+
+        energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
+
+        sum+=energy_dict["value"]
+    return sum
