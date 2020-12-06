@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from .models import Breakfast, Lunch, Dinner
+from .forms import BreakfastForm, LunchForm, DinnerForm
 
 def index(request):
 
@@ -64,10 +65,61 @@ def loop(request, eating):
     return sum
 
 def create_breakfast(request):
-    return render(request, 'counter/create_breakfast.html')
+    error = ''
+    if request.method == 'POST':
+        form = BreakfastForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('counter_index')
+        else:
+            error = 'Форма была неверной'
+
+
+    form = BreakfastForm()
+
+    data = {
+        'form': form,
+        'error': error,
+    }
+
+    return render(request, 'counter/create_breakfast.html', data)
 
 def create_lunch(request):
-    return render(request, 'counter/create_lunch.html')
+    error = ''
+    if request.method == 'POST':
+        form = LunchForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('counter_index')
+        else:
+            error = 'Форма была неверной'
+
+
+    form = LunchForm()
+
+    data = {
+        'form': form,
+        'error': error,
+    }
+
+    return render(request, 'counter/create_lunch.html', data)
 
 def create_dinner(request):
-    return render(request, 'counter/create_dinner.html')
+        error = ''
+        if request.method ==     'POST':
+            form = DinnerForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('counter_index')
+            else:
+                error = 'Форма была неверной'
+
+
+        form = DinnerForm()
+
+        data = {
+            'form': form,
+            'error': error,
+        }
+
+        return render(request, 'counter/create_dinner.html', data)

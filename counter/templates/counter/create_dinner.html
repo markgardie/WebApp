@@ -5,5 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<h1>Добавление</h1>
+<div class="features text-center">
+  <h1>Добавление ужина</h1><br>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.product_name }}
+    <span>{{ error }}</span>
+    <button class="btn btn-success" name="dinner" type="submit">Добавить</button>
+  </form>
+</div>
 {% endblock %}
