@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import requests
 from .models import Breakfast, Lunch, Dinner
 from .forms import BreakfastForm, LunchForm, DinnerForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 def index(request):
 
@@ -64,6 +66,22 @@ def loop(request, eating):
         sum+=energy_dict["value"]
     return sum
 
+class BreakfastCreate(CreateView):
+    model = Breakfast
+    fields = '__all__'
+    success_url = reverse_lazy('counter_index')
+
+class LunchCreate(CreateView):
+    model = Lunch
+    fields = '__all__'
+    success_url = reverse_lazy('counter_index')
+
+class DinnerCreate(CreateView):
+    model = Dinner
+    fields = '__all__'
+    success_url = reverse_lazy('counter_index')
+
+"""
 def create_breakfast(request):
     error = ''
     if request.method == 'POST':
@@ -123,3 +141,4 @@ def create_dinner(request):
         }
 
         return render(request, 'counter/create_dinner.html', data)
+"""

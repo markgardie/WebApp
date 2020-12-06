@@ -10,7 +10,6 @@
   <form method="post">
     {% csrf_token %}
     {{ form.product_name }}
-    <span>{{ error }}</span>
     <button class="btn btn-success" name = "lunch" type="submit">Добавить</button>
   </form>
 </div>

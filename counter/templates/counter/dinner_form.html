@@ -6,12 +6,11 @@
 
 {% block content %}
 <div class="features text-center">
-  <h1>Добавление завтрака</h1><br>
+  <h1>Добавление ужина</h1><br>
   <form method="post">
     {% csrf_token %}
     {{ form.product_name }}
-    <span>{{ error }}</span>
-    <button class="btn btn-success" name= "breakfast" type="submit">Добавить</button>
+    <button class="btn btn-success" name="dinner" type="submit">Добавить</button>
   </form>
 </div>
 {% endblock %}
