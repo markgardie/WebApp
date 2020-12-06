@@ -20,7 +20,7 @@
           <b>Продукт:</b> {{ info.name }} <br>
           <b>Энергия:</b> {{ info.energy }} ккал <br>
           <br>
-          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+          <a href="{% url 'delete_breakfast' info.id %}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
         </div>
         {% endfor %}
 
@@ -38,7 +38,7 @@
           <b>Продукт:</b> {{ info.name }} <br>
           <b>Энергия:</b> {{ info.energy }} ккал <br>
           <br>
-          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+          <a href="{% url 'delete_lunch' info.id %}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
         </div>
         {% endfor %}
 
@@ -56,7 +56,7 @@
           <b>Продукт:</b> {{ info.name }} <br>
           <b>Энергия:</b> {{ info.energy }} ккал <br>
           <br>
-          <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
+          <a href="{% url 'delete_dinner' info.id%}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
         </div>
         {% endfor %}
 

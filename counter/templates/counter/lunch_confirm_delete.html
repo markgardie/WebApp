@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Удалить
+{% endblock %}
+
+{% block content %}
+<div class="features text-center">
+  <h1>Вы действительно хотите удалить {{ lunch.product_name }}?</h1><br>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Удалить</button>
+    <a href= "{% url 'counter_index' %}" class="btn btn-light">Вернуться</a>
+  </form>
+</div>
+{% endblock %}

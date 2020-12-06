@@ -38,6 +38,7 @@ def eating_info(request, eating):
         fat_dict = next(item for item in list_dict if item["nutrientName"] == "Total lipid (fat)")
 
         product_info = {
+            'id': product.id,
             'name': product.product_name,
             'energy': energy_dict["value"],
             'protein': protein_dict["value"],
@@ -81,64 +82,17 @@ class DinnerCreate(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('counter_index')
 
-"""
-def create_breakfast(request):
-    error = ''
-    if request.method == 'POST':
-        form = BreakfastForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('counter_index')
-        else:
-            error = 'Форма была неверной'
+class BreakfastDelete(DeleteView):
+    model = Breakfast
+    context_object_name = 'breakfast'
+    success_url = reverse_lazy('counter_index')
 
+class LunchDelete(DeleteView):
+    model = Lunch
+    context_object_name = 'lunch'
+    success_url = reverse_lazy('counter_index')
 
-    form = BreakfastForm()
-
-    data = {
-        'form': form,
-        'error': error,
-    }
-
-    return render(request, 'counter/create_breakfast.html', data)
-
-def create_lunch(request):
-    error = ''
-    if request.method == 'POST':
-        form = LunchForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('counter_index')
-        else:
-            error = 'Форма была неверной'
-
-
-    form = LunchForm()
-
-    data = {
-        'form': form,
-        'error': error,
-    }
-
-    return render(request, 'counter/create_lunch.html', data)
-
-def create_dinner(request):
-        error = ''
-        if request.method ==     'POST':
-            form = DinnerForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('counter_index')
-            else:
-                error = 'Форма была неверной'
-
-
-        form = DinnerForm()
-
-        data = {
-            'form': form,
-            'error': error,
-        }
-
-        return render(request, 'counter/create_dinner.html', data)
-"""
+class DinnerDelete(DeleteView):
+    model = Dinner
+    context_object_name = 'dinner'
+    success_url = reverse_lazy('counter_index')
