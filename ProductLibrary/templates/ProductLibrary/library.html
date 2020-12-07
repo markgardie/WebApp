@@ -8,12 +8,7 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-5 offset-1">
-      <h3>Введите продукт</h3>
-      <form action="" method="post">
-        {% csrf_token %}
-        {{ form.name }} <br>
-        <input type="submit" name="send" value="Узнать" class="mt-btn btn-danger">
-      </form>
+        <a href="{% url 'create_product' %}"><input type="submit" class="btn btn-primary" value="Добавить продукт"><br></a><br>
     </div>
     <div class="col-4 offset-1">
       <h1>Информация по продукту</h1>
@@ -25,9 +20,7 @@
         <b>Белки:</b> {{ info.protein }} г<br>
         <b>Жиры:</b> {{ info.fat }} г<br>
         <b>Углеводы:</b> {{ info.carbohydrate }} г<br>
-        <form action="" method="post">{% csrf_token %}
-            <input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br>
-        </form>
+        <a href="{% url 'delete_product' info.id %}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
       </div>
       {% endfor %}
 

@@ -3,24 +3,31 @@ from django.shortcuts import render
 from .models import Product
 from django.http import HttpResponse
 from .forms import ProductForm
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
 def index(request):
-    return render (request, 'library/index.html')
+    return render (request, 'ProductLibrary/index.html')
 
 def library(request):
+    product = Product.objects.all()
+
+    all_info = products_info(request, product)
+
+    context = {
+        'all_info': all_info
+    }
+
+    return render(request, 'ProductLibrary/library.html', context)
+
+def products_info(request,  products):
+    prod_info = []
+
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
-
-    form = lib_create(request)
-
-    products = Product.objects.all()
-
-    all_products = []
-
     for product in products:
         res = requests.get(url.format(product.name)).json()
         list_dict = res["foods"][0]["foodNutrients"]
-
 
         energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
         protein_dict = next(item for item in list_dict if item["nutrientName"] == "Protein")
@@ -28,28 +35,24 @@ def library(request):
         fat_dict = next(item for item in list_dict if item["nutrientName"] == "Total lipid (fat)")
 
         product_info = {
+            'id': product.id,
             'name': product.name,
             'energy': energy_dict["value"],
             'protein': protein_dict["value"],
             'carbohydrate':carbohydrate_dict["value"],
             'fat': fat_dict["value"],
         }
-        all_products.append(product_info)
 
+        prod_info.append(product_info)
 
-    context = {'all_info': all_products, 'form': form}
+    return prod_info
 
-    return render(request, 'library/library.html', context)
+class ProductCreateView(CreateView):
+    model = Product
+    fields = '__all__'
+    success_url = reverse_lazy('library')
 
-
-def lib_create(request):
-    if(request.method == 'POST'):
-        form = ProductForm(request.POST)
-        form.save()
-
-    form = ProductForm()
-
-    return form
-
-def signin(request):
-        return render(request, 'library/signin.html')
+class ProductDeleteView(DeleteView):
+    model = Product
+    context_object_name = 'product'
+    success_url = reverse_lazy('library')
