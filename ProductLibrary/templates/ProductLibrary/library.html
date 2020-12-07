@@ -14,14 +14,22 @@
       <h1>Информация по продукту</h1>
 
       {% for info in all_info %}
-      <div class="alert alert-info">
-        <b>Продукт:</b> {{ info.name }}<br>
-        <b>Энергия:</b> {{ info.energy }} ккал <br>
-        <b>Белки:</b> {{ info.protein }} г<br>
-        <b>Жиры:</b> {{ info.fat }} г<br>
-        <b>Углеводы:</b> {{ info.carbohydrate }} г<br>
-        <a href="{% url 'delete_product' info.id %}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
-      </div>
+
+        {% if error in info %}
+          <div class="alert alert-info">
+            {{ info.error }}<br>
+          </div>
+        {% else %}
+          <div class="alert alert-info">
+            <b>Продукт:</b> {{ info.name }}<br>
+            <b>Энергия:</b> {{ info.energy }} ккал <br>
+            <b>Белки:</b> {{ info.protein }} г<br>
+            <b>Жиры:</b> {{ info.fat }} г<br>
+            <b>Углеводы:</b> {{ info.carbohydrate }} г<br>
+            <a href="{% url 'delete_product' info.id %}"><input type="submit" name="delete" value="Удалить" class="mt-btn btn-danger"><br></a>
+          </div>
+        {% endif %}
+
       {% endfor %}
 
     </div>

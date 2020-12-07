@@ -26,27 +26,38 @@ def index(request):
 
 def eating_info(request, eating):
     eat_info = []
+    error = 'Такого продукта нет. Вводите продукт на английском'
+
 
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=zbfgBNQzv1ZfcoGcl4ekXGhGikM6C8otSs5siNpl&query={}&pageSize=1'
     for product in eating:
         res = requests.get(url.format(product.product_name)).json()
-        list_dict = res["foods"][0]["foodNutrients"]
+        if not res["foods"]:
+            product_info = {
+                'id': product.id,
+                'name': product.product_name,
+                'error': error
+            }
+            eat_info.append(product_info)
+        else:
 
-        energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
-        protein_dict = next(item for item in list_dict if item["nutrientName"] == "Protein")
-        carbohydrate_dict = next(item for item in list_dict if item["nutrientName"] == "Carbohydrate, by difference")
-        fat_dict = next(item for item in list_dict if item["nutrientName"] == "Total lipid (fat)")
+            list_dict = res["foods"][0]["foodNutrients"]
 
-        product_info = {
-            'id': product.id,
-            'name': product.product_name,
-            'energy': energy_dict["value"],
-            'protein': protein_dict["value"],
-            'carbohydrate':carbohydrate_dict["value"],
-            'fat': fat_dict["value"],
-        }
+            energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
+            protein_dict = next(item for item in list_dict if item["nutrientName"] == "Protein")
+            carbohydrate_dict = next(item for item in list_dict if item["nutrientName"] == "Carbohydrate, by difference")
+            fat_dict = next(item for item in list_dict if item["nutrientName"] == "Total lipid (fat)")
 
-        eat_info.append(product_info)
+            product_info = {
+                'id': product.id,
+                'name': product.product_name,
+                'energy': energy_dict["value"],
+                'protein': protein_dict["value"],
+                'carbohydrate':carbohydrate_dict["value"],
+                'fat': fat_dict["value"],
+            }
+
+            eat_info.append(product_info)
 
     return eat_info
 
@@ -60,11 +71,13 @@ def loop(request, eating):
 
     for product in eating:
         res = requests.get(url.format(product.product_name)).json()
-        list_dict = res["foods"][0]["foodNutrients"]
 
-        energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
-
-        sum+=energy_dict["value"]
+        if not res["foods"]:
+            sum+=0
+        else:
+            list_dict = res["foods"][0]["foodNutrients"]
+            energy_dict = next(item for item in list_dict if item["nutrientName"] == "Energy")
+            sum+=energy_dict["value"]
     return sum
 
 class BreakfastCreate(CreateView):
